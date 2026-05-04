@@ -16,7 +16,7 @@ Description: "This is the base Organization profile to be used when profiling on
 * identifier ^slicing.discriminator.path = "system"
 * identifier ^slicing.rules = #open
 * identifier ^slicing.description = "Slice for swedish organization ID"
-* identifier contains hsaid 0..1
+* identifier contains hsaid 0..*
 * identifier[hsaid].system = $hsaid // (exactly)
 * identifier[hsaid].type = $v2-0203#PRN // (exactly)
 * identifier contains organizationIdentifier 0..1
