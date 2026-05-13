@@ -135,10 +135,6 @@ Description: "This is the base Organizational Unit profile to be used when profi
 
 * extension contains $organization-period named period 0..1
 
-* contained ^slicing.discriminator.type = #type
-* contained ^slicing.discriminator.path = "contained"
-* contained ^slicing.rules = #open
-* contained contains SEBaseBusiness 0..1
 
 ValueSet: SEBaseOrganizationalUnitTypeVS
 Id: SEBaseOrganizationalUnitTypeVS
