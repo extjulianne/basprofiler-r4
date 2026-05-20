@@ -6,9 +6,17 @@ Description: "This is the base HealthcareService profile to be used when profili
 * ^status = #active
 * ^experimental = false
 * type from SEBaseHealthcareServicesVS (extensible)
-* characteristic from hvo-encounter-means (example)
+* characteristic from SEBaseEncounterMeansVS (example)
 * category from SEBaseHSAVerksamhetVS (extensible)
-* extension contains HVOHealthcareServicePeriodExtension named period 0..1
+* extension contains SEBaseHealthcareServicePeriodExtension named period 0..1
+
+Extension: SEBaseHealthcareServicePeriodExtension
+Id: SEBaseHealthcareServicePeriodExtension
+Description: "Extension for healthcare service period"
+Context: HealthcareService
+* ^status = #active
+* ^experimental = false
+* value[x] only Period
 
 Instance: CardiologyBusiness
 InstanceOf: SEBaseHealthcareService

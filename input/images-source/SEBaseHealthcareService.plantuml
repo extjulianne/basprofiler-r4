@@ -21,21 +21,25 @@ class "SEBaseOrganization" as Org <<ORGANIZATION>> {
     ---
     identifer[hsaid]: Identifier 
     identifier[organizationIdentifer]: Identifier
+    identifier[coordinationNumber]: Identifier
+    identifier[personalIdentityNumber]: Identifier
     type: CodeableConcept (SEBaseOrganizationTypeVS (required)) 
     partOf : Reference (Organization)
     extension[organizationActive]: boolean
     extension[period]: period
+    extension[additionalRelationship] : Complex
 }
 
 class "SEBaseHealthcareService" as HSvc <<HEALTHCARE_SERVICE>> {
     A single healthcare service or category of services
     that are provided by an organization at a location
     ---
-    category: CodeableConcept (ServiceCategory (example) )
-    type: CodeableConcept (ServiceType / SEBaseHSAVerksamhetVS (required))
-    specialty: CodeableConcept (Practice Setting Code Value Set (example)) 
+    type: CodeableConcept (ServiceType / SEBaseHealthcareServicesVS (extensible))
     location: Reference (Location)
     providedBy: Reference (Organization)
+    category: CodeableConcept (BusinessCategory / SEBaseHSAVerksamhetVS (extensible))
+    characteristic: CodeableConcept (EncounterMeans / SEBaseEncounterMeansVS (example))
+    extension[period] : Period
 }
 
 class "Location" as Loc <<LOCATION>> {
@@ -43,29 +47,15 @@ class "Location" as Loc <<LOCATION>> {
     and resources and participants may be stored, 
     found, contained, or accommodated.
     ---
-    type: CodeableConcept (ServiceType / SEBaseHSAVerksamhetVS (required))
-    managingOrganization: Reference (Organization)
+    type: CodeableConcept (Functionality / SEBaseLocationFunctionVS (example))
     partOf : Reference (Location)
+    extension[positionSweref] : Complex
+    extension[period] : Period
 }
 
-class "SEBaseBusiness" as Bus <<HEALTHCARE_SERVICE>> {
-    Verksamhet
-    ---
-    providedBy: Reference (Organization)
-    category: CodeableConcept (BusinessCategory / SEBaseHSAVerksamhetVS (extensible))
-    location: Reference (Location)
-    availability: Availability
-}
 
-class "SEBaseOrganizationalUnit" as OrgUnit <<Organization>> {
-    Organisatorisk enhet
-    ---
-    extension[organizationActive]: boolean
-    extension[period]: period
-    identifier: Identifier
-    type: CodeableConcept (SEBaseOrganizationalUnitTypeVS (required))
-    partOf: Reference (Organization)
-}
+
+
 
 
 Enc --> "0..1" Org : "serviceProvider.Reference"
