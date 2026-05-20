@@ -1,10 +1,5 @@
 
-ValueSet: SEBaseHSAVerksamhetVS
-Title: "HSA valueset for business classification codes"
-Description: "Codes used to describe the type of care activities an entity can provide."
-* ^status = #active
-* ^experimental = false
-* include codes from system urn:oid:1.2.752.129.2.2.1.3
+
 
 Profile: SEBaseOrganization
 Parent: Organization
@@ -110,6 +105,7 @@ Title: "SE ValueSet for organization types"
 Description: "This value sets contains organization types relevant for Swedish healthcare"
 * ^status = #active
 * $SCT#143591000052106 "vårdgivare"
+* $SCT#43741000 "vårdenhet"
 
 Instance: OrganizationExample1
 InstanceOf: SEBaseOrganization
@@ -117,46 +113,3 @@ Description: "Organization example"
 * id = "Organization1"
 * identifier[hsaid].value = "SE2321000131-P000000123457"
 
-Profile: SEBaseOrganizationalUnit
-Parent: Organization
-Title: "SE base profile for organizational unit"
-Description: "This is the base Organizational Unit profile to be used when profiling on Organization in a Swedish context"
-* ^status = #active
-* ^experimental = false
-* identifier ^slicing.discriminator.type = #value
-* identifier ^slicing.discriminator.path = "system"
-* identifier ^slicing.rules = #open
-* identifier ^slicing.description = "Slice for swedish organizational unit ID"
-* identifier contains hsaid 0..*
-* identifier[hsaid].system = $hsaid // (exactly)
-* identifier[hsaid].type = $v2-0203#PRN // (exactly)
-
-* type from SEBaseOrganizationalUnitTypeVS (extensible)
-
-* extension contains $organization-period named period 0..1
-
-
-ValueSet: SEBaseOrganizationalUnitTypeVS
-Id: SEBaseOrganizationalUnitTypeVS
-Title: "SE ValueSet for organizational unit types"
-Description: "This value sets contains organizational unit types relevant for Swedish healthcare"
-* $SCT#43741000 "vårdenhet"
-
-Instance: CardiologyBusiness
-InstanceOf: SEBaseBusiness
-Usage: #inline
-* providedBy.reference = "#"
-* category[+].coding = urn:oid:1.2.752.129.2.2.1.3#1116 "Kardiologi"
-
-
-Instance: OrganizationalUnitExample1
-InstanceOf: SEBaseOrganizationalUnit
-Usage: #example
-Title: "Kardiologiska kliniken US, Linköping"
-Description: "Example of a SEBaseOrganizationalUnit with contained cardiology business."
-* contained = CardiologyBusiness
-* name = "Kardiologiska kliniken US, Linköping"
-* identifier[+].system = "urn:oid:1.2.752.29.4.19"
-* identifier[=].value = "SE2321000040-xxxxxx"
-* extension[period].valuePeriod.start = 1970-01-01T00:00:00+01:00
-* type = http://snomed.info/sct|http://snomed.info/sct/45991000052106#43741000 "vårdenhet"
